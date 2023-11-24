@@ -1,0 +1,19 @@
+{
+  "name": "bel-cohort-5",
+  "version": "1.0.0",
+  "description": "BEL cohort learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukeshyadav/bel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukeshyadav/bel/issues"
+  },
+  "homepage": "https://github.com/mukeshyadav/bel#readme"
+}
