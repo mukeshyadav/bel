@@ -18,7 +18,7 @@ The API offers the following features:
 | /tasks                        | GET         | Get a list of all tasks.                         |
 | /tasks/:id                    | GET         | Get a specific task by ID.                       |
 | /tasks/priority/:level        | GET         | Get tasks based on priority level.               |
-| /tasks?status=true|false      | GET         | Get a list of tasks based on status.             |
+| /tasks?status=[true|false]      | GET         | Get a list of tasks based on status.             |
 | /tasks                        | POST        | Create and save a new task.                      |
 | /tasks/:id                    | PUT         | Update an existing task.                         |
 | /tasks/:id                    | DELETE      | Delete an existing task.                         |
