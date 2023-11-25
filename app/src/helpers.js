@@ -28,8 +28,15 @@ const writeJSONFile = (path, data) => {
 const validateTaskData = (fields) => {
   if (
     fields.hasOwnProperty("title") &&
+    !!fields.title.length &&
     fields.hasOwnProperty("description") &&
-    fields.hasOwnProperty("flag")
+    !!fields.description.length &&
+    fields.hasOwnProperty("flag") &&
+    typeof fields.flag !== "string" &&
+    fields.hasOwnProperty("priority") &&
+    (fields.priority === "low" ||
+      fields.priority === "medium" ||
+      fields.priority === "high")
   ) {
     return true;
   } else {

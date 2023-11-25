@@ -7,7 +7,17 @@ const FAKE_TASKS_FILE = path.join(__dirname, "fake-task-data.json");
 const fetchAllTasks = async (req, res) => {
   try {
     const tasks = await readJSONFile(FAKE_TASKS_FILE);
-    return res.send(tasks);
+
+    if (req.query.status) {
+      const status = JSON.parse(req.query.status);
+      const tasksByStatus = tasks
+        .filter((task) => task.flag === status)
+        .sort((a, b) => {
+          return new Date(b.creationDate) - new Date(a.creationDate);
+        });
+      return res.status(200).send(tasksByStatus);
+    }
+    return res.status(200).send(tasks);
   } catch (error) {
     console.error("Error retrieving tasks:", error);
     return res.status(500).send("Internal Server Error");
@@ -38,6 +48,7 @@ const createTask = async (req, res) => {
     const id = uuidv4();
     const task = {
       id,
+      creationDate: new Date().toISOString(),
       ...req.body,
     };
     tasks.push(task);
@@ -60,6 +71,10 @@ const updateTaskById = async (req, res) => {
       ...task,
       ...req.body,
     };
+    const isFieldsValid = validateTaskData(updatedTask);
+    if (!isFieldsValid) {
+      return res.status(400).send("Please provide all required fields");
+    }
     const updatedTasks = tasks.map((task) =>
       task.id === req.params.id ? updatedTask : task
     );
@@ -91,10 +106,27 @@ const deleteTaskById = async (req, res) => {
   }
 };
 
+const fetchTaskByPriorityLevel = async (req, res) => {
+  try {
+    const tasks = await readJSONFile(FAKE_TASKS_FILE);
+    const task = tasks.filter(({ priority }) => priority === req.params.level);
+    if (!task) {
+      return res
+        .status(404)
+        .send(`Task with priority ${req.params.priority} not found`);
+    }
+    return res.status(200).send(task);
+  } catch (error) {
+    console.error("Error retrieving tasks:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+
 module.exports = {
   fetchAllTasks,
   fetchTaskById,
   createTask,
   updateTaskById,
   deleteTaskById,
+  fetchTaskByPriorityLevel,
 };

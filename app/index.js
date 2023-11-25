@@ -8,6 +8,7 @@ const {
   createTask,
   updateTaskById,
   deleteTaskById,
+  fetchTaskByPriorityLevel,
 } = require("./src/tasks");
 
 dotenv.config();
@@ -27,3 +28,5 @@ app.get("/tasks/:id", fetchTaskById);
 app.post("/tasks", createTask);
 app.put("/tasks/:id", updateTaskById);
 app.delete("/tasks/:id", deleteTaskById);
+
+app.get("/tasks/priority/:level", fetchTaskByPriorityLevel);
