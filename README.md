@@ -31,3 +31,17 @@ npm install
 npm run dev
 ```
 
+## Running using `curl`
+
+```
+curl --request PUT \
+  --url http://localhost:3000/tasks/cad23358-bb7b-492d-b970-1660b702c6ac \
+  --header 'Content-Type: application/json' \
+  --data '{
+"title": "Lorem Ipsum dolor",
+"description": "testing this with new information ",
+	"flag": true,
+	"priority": "low"
+}'
+```
+
